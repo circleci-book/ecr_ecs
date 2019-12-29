@@ -10,4 +10,4 @@ Resources:
   ECR:
     Type: AWS::ECR::Repository
     Properties:
-      RepositoryName: !Sub ${ProjectName}-ecr
+      RepositoryName: nginx
