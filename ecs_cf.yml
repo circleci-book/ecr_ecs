@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description:
-  Fargate and ALB Create
+  ECS Creation
 
 Metadata:
   "AWS::CloudFormation::Interface":
@@ -15,7 +15,7 @@ Metadata:
           - InternetALBName
           - TargetGroupName
       - Label:
-          default: "Fargate for ECS Configuration"
+          default: "ECS Configuration"
         Parameters:
           - ECSClusterName
           - ECSTaskName
