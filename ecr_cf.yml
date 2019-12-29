@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create ECR
+ 
+Parameters:
+  ProjectName:
+    Default: circleci-book-docker
+    Type: String
+ 
+Resources:
+  ECR:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Sub ${ProjectName}-ecr
