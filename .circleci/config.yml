@@ -5,11 +5,10 @@ orbs:
 workflows:
   build-and-deploy:
     jobs:
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: 'nginx'
-          tag: '${CIRCLE_SHA1}'
-
+      #- aws-ecr/build-and-push-image:
+      #    account-url: AWS_ECR_ACCOUNT_URL
+      #    repo: 'nginx'
+      #    tag: '${CIRCLE_SHA1}'
       #- aws-ecs/deploy-service-update:
       #          requires:
       #            - aws-ecr/build-and-push-image
