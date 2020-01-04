@@ -1,10 +1,17 @@
 version: 2.1
+jobs:
+  hello:
+    docker:
+      - image: busybox
+    steps:
+      - run: echo "Hello"
 orbs:
   aws-ecr: circleci/aws-ecr@6.2.0
   aws-ecs: circleci/aws-ecs@0.0.11
 workflows:
   build-and-deploy:
     jobs:
+      - hello
       #- aws-ecr/build-and-push-image:
       #    account-url: AWS_ECR_ACCOUNT_URL
       #    repo: 'nginx'
