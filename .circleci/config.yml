@@ -1,44 +1,21 @@
-version: 2
+version: 2.1
 jobs:
-  run_e2e_test:
+  hello:
     docker:
-      - image: ruby:2.6
-    working_directory: ~/project
+      - image: busybox
     steps:
-      - checkout
-      - run: bundle install
-      - run: bundle exec ruby monitoring.rb "https://google.com"
-
+      - run: echo "Hello"
+orbs:
+  aws-ecr: circleci/aws-ecr@6.2.0
+  aws-ecs: circleci/aws-ecs@0.0.11
 workflows:
-  version: 2
-  monitoring:
-    triggers:
-      - schedule:
-          cron: "* * * * *"
-          filters:
-            branches:
-              only:
-                - add-monitoring
+  build-and-deploy:
     jobs:
-      - run_e2e_test
-
-#jobs:
-#  hello:
-#    docker:
-#      - image: busybox
-#    steps:
-#      - run: echo "Hello"
-#orbs:
-#  aws-ecr: circleci/aws-ecr@6.2.0
-#  aws-ecs: circleci/aws-ecs@0.0.11
-#workflows:
-#  build-and-deploy:
-#    jobs:
-#      - hello
-#      - aws-ecr/build-and-push-image:
-#          account-url: AWS_ECR_ACCOUNT_URL
-#          repo: 'nginx'
-#          tag: '${CIRCLE_SHA1}'
+      - hello
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: 'nginx'
+          tag: '${CIRCLE_SHA1}'
       #- aws-ecs/deploy-service-update:
       #          requires:
       #            - aws-ecr/build-and-push-image
@@ -46,3 +23,28 @@ workflows:
       #          service-name: 'circleci-book-service'
       #          cluster-name: 'circleci-book-cluster'
       #          container-image-name-updates: 'container=circleci-book-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nginx:${CIRCLE_SHA1}'
+
+### E2Eテストの例
+#version: 2
+#jobs:
+#  run_e2e_test:
+#    docker:
+#      - image: ruby:2.6
+#    working_directory: ~/project
+#    steps:
+#      - checkout
+#      - run: bundle install
+#      - run: bundle exec ruby monitoring.rb "https://google.com"
+#
+#workflows:
+#  version: 2
+#  monitoring:
+#    triggers:
+#      - schedule:
+#          cron: "* * * * *"
+#          filters:
+#            branches:
+#              only:
+#                - add-monitoring
+#    jobs:
+#      - run_e2e_test
