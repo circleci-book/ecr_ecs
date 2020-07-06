@@ -1,21 +1,44 @@
-version: 2.1
+version: 2
 jobs:
-  hello:
+  run_e2e_test:
     docker:
-      - image: busybox
+      - image: ruby:2.6
+    working_directory: ~/project
     steps:
-      - run: echo "Hello"
-orbs:
-  aws-ecr: circleci/aws-ecr@6.2.0
-  aws-ecs: circleci/aws-ecs@0.0.11
+      - checkout
+      - run: bundle install
+      - run: bundle exec ruby monitoring.rb "https://google.com"
+
 workflows:
-  build-and-deploy:
+  version: 2
+  monitoring:
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - add-monitoring
     jobs:
-      - hello
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          repo: 'nginx'
-          tag: '${CIRCLE_SHA1}'
+      - run_e2e_test
+
+#jobs:
+#  hello:
+#    docker:
+#      - image: busybox
+#    steps:
+#      - run: echo "Hello"
+#orbs:
+#  aws-ecr: circleci/aws-ecr@6.2.0
+#  aws-ecs: circleci/aws-ecs@0.0.11
+#workflows:
+#  build-and-deploy:
+#    jobs:
+#      - hello
+#      - aws-ecr/build-and-push-image:
+#          account-url: AWS_ECR_ACCOUNT_URL
+#          repo: 'nginx'
+#          tag: '${CIRCLE_SHA1}'
       #- aws-ecs/deploy-service-update:
       #          requires:
       #            - aws-ecr/build-and-push-image
