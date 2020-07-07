@@ -45,6 +45,6 @@ workflows:
 #          filters:
 #            branches:
 #              only:
-#                - add-monitoring
+#                - master
 #    jobs:
 #      - run_e2e_test
