@@ -34,7 +34,7 @@ workflows:
 #    steps:
 #      - checkout
 #      - run: bundle install
-#      - run: bundle exec ruby monitoring.rb "https://google.com"
+#      - run: bundle exec ruby e2e.rb "https://google.com"
 #
 #workflows:
 #  version: 2
