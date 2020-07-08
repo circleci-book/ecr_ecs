@@ -29,7 +29,7 @@ workflows:
 #jobs:
 #  run_e2e_test:
 #    docker:
-#      - image: ruby:2.6
+#      - image: circleci/ruby:2.6.5
 #    working_directory: ~/project
 #    steps:
 #      - checkout
