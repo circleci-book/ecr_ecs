@@ -11,13 +11,13 @@ workflows:
           tag: '${CIRCLE_SHA1}'
 
       ### ECSへデプロイするジョブ
-      #- aws-ecs/deploy-service-update:
-      #    requires:
-      #      - aws-ecr/build-and-push-image
-      #    family: 'circleci-book-task'
-      #    service-name: 'circleci-book-service'
-      #    cluster-name: 'circleci-book-cluster'
-      #    container-image-name-updates: 'container=circleci-book-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nginx:${CIRCLE_SHA1}'
+      - aws-ecs/deploy-service-update:
+         requires:
+           - aws-ecr/build-and-push-image
+         family: 'circleci-book-task'
+         service-name: 'circleci-book-service'
+         cluster-name: 'circleci-book-cluster'
+         container-image-name-updates: 'container=circleci-book-container,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nginx:${CIRCLE_SHA1}'
 
 ### E2Eテストの例
 #version: 2
