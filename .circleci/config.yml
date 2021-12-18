@@ -7,7 +7,7 @@ workflows:
     jobs:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
-          repo: 'nippo-api/rails-api'
+          repo: 'nippo/rails-api'
           tag: '${CIRCLE_SHA1}'
 
       ### ECSへデプロイするジョブ
