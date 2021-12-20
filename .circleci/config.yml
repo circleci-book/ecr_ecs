@@ -8,7 +8,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           account-url: AWS_ECR_ACCOUNT_URL
           repo: 'nippo/rails-api'
-          tag: '${CIRCLE_SHA1}'
+          tag: 'latest'
 
       ### ECSへデプロイするジョブ
       - aws-ecs/deploy-service-update:
@@ -17,7 +17,7 @@ workflows:
           family: 'console-sample-app-static'
           service-name: 'NIppo-Api-ECS-Service'
           cluster-name: 'Nippo-Api-ECS-EC2'
-          container-image-name-updates: 'container=simple-app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nippo/rails-api:${CIRCLE_SHA1}'
+          container-image-name-updates: 'container=simple-app,image-and-tag=${AWS_ECR_ACCOUNT_URL}/nippo/rails-api:latest'
 
 ### E2Eテストの例
 #version: 2
